@@ -1,13 +1,5 @@
-# signup_app
+Pumpkin Patch Scenarios
 
-A new Flutter project.
+1. After rotating my emulator, the name, password visibility, birth date, and selected creature type all survived. The name is stored in _nameController, password visibility in _obscurePassword, birth date in _birthDate and _dateController, and creature type in _selectedCreatureType. These belong to _SignupScreenState, so rebuilding the widgets for the new orientation did not reset them because the existing State object survived. No rotation fix was needed in my test; if a value disappeared because it was declared inside build(), the smallest fix would be moving it into the State class.
 
-## Reflection
-
-1. Trace the local tip feature from button tap to displayed text. Which widget/state changes during the simulated loading state, and how does the user recover from the local error case?
-
-Tapping the button calls _getTip(). setState() sets _loading to true, changes the button text, disables the button, and shows a loading indicator. After 700 milliseconds, it displays a tip or a local error. Pressing Retry runs the function again and displays a tip because the simulated failure was already reset.
-
-3. Which fixed local category selects the tip, and what form information does the feature deliberately ignore? Why?
-
-The feature uses the fixed local category password_help to select its list of preset tips. It uses _nextTip % matchingTips.length to cycle through the tips, returning to the first tip after reaching the end. It deliberately ignores all form information, including the name, email, and password, because the tips provide general guidance and should not determine whether signup is valid.
+2. I tested five dates to check the lower boundary, upper boundary, and a valid date after 1990. My picker passed all five tests, accepting dates from January 1, 1920 through today and blocking dates outside that range. January 1, 2000 and today would expose the incorrect lastDate: DateTime(1990) setting because both should be accepted but would be blocked. My screenshots show the out-of-range error for December 31, 1919 and the calendar’s upper boundary.
